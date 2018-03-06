@@ -1,0 +1,221 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+.topbar {
+  width: 1000px;
+  margin: 0 auto;
+}
+#bars #top {
+  background-color: #f7f7f7;
+  font: normal normal bolder 14px/31px "SimSun";
+}
+#bars #top::after {
+  content: "";
+  display: block;
+  clear: both;
+}
+#bars #top a {
+  color: #666666;
+  text-decoration: none;
+}
+#bars #top .collection {
+  background: url(../../image/icon/images/star.jpg);
+  background-position: left center;
+  background-repeat: no-repeat;
+  padding-left: 19px;
+  float: left;
+}
+#bars #top .rightarea {
+  float: right;
+}
+#bars #top .rightarea a:nth-child(1) {
+  border-right: 1px solid #666666;
+  padding-right: 5px;
+}
+#bars #middle {
+  height: 85px;
+  background-color: #1d7ad9;
+  overflow: hidden;
+}
+#bars #middle #logo {
+  float: left;
+  margin: 11px 0px auto 40px;
+}
+#bars #middle #search {
+  float: left;
+  margin-top: 23px;
+  margin-left: 147px;
+  height: 35px;
+}
+#bars #middle #search input {
+  border: none;
+}
+#bars #middle #search input:first-child {
+  height: 35px;
+  width: 350px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+#bars #middle #search input:last-child {
+  background-color: #ff8c00;
+  color: white;
+  height: 35px;
+  width: 70px;
+  font-family: 'Microsoft Yahei';
+}
+#bars #middle #shopText {
+  float: right;
+  background: #ff8c00;
+  margin-top: 23px;
+  height: 35px;
+  padding-right: 12px;
+}
+#bars #middle #shopText div {
+  display: inline-block;
+  height: 35px;
+  line-height: 35px;
+  color: white;
+}
+#bars #middle #shopText div:nth-child(1) {
+  margin-left: 11px;
+}
+#bars #middle #shopText div:nth-child(1) span {
+  margin-left: 7px;
+}
+#bars #middle #shopText div:nth-child(2) {
+  margin-left: 26px;
+}
+#bars #middle #shopText div:nth-child(2) span {
+  margin-right: 7px;
+}
+#bars #middle #shopText a {
+  color: white;
+  text-decoration: none;
+}
+#bars #bottom {
+  background-color: #1369c0;
+  height: 35px;
+  text-align: center;
+}
+#bars #bottom a {
+  text-decoration: none;
+}
+#bars #bottom .total {
+  color: #fff;
+  float: left;
+  position: relative;
+  display: inline-block;
+  width: 189px;
+  line-height: 35px;
+}
+#bars #bottom .total:hover {
+  background-color: #4593fd;
+}
+#bars #bottom .total ul.list {
+  list-style-type: none;
+  background-color: #4593fd;
+}
+#bars #bottom .total ul.list li {
+  height: 35px;
+  border-bottom: 1px solid #1369c0;
+  border-top: 1px solid #3587f2;
+  padding-top: 14px;
+  padding-bottom: 14px;
+  padding-left: 9px;
+  margin-left: 1px;
+  text-align: left;
+}
+#bars #bottom .total ul.list li a {
+  color: white;
+}
+#bars #bottom .total ul.list li .item {
+  font-size: 14px;
+  height: 18px;
+  line-height: 18px;
+}
+#bars #bottom .total ul.list li .item .hlight {
+  font-size: 12px;
+  display: inline-block;
+  margin-left: 11px;
+  width: 60px;
+  border-radius: 10px;
+  background-color: #1369c0;
+  text-align: center;
+}
+#bars #bottom .total ul.list li .cont {
+  font-size: 12px;
+  line-height: 12px;
+  margin-top: 5px;
+}
+#bars #bottom .total ul.list li:hover {
+  background-color: white;
+}
+#bars #bottom .total ul.list li:hover a {
+  color: black;
+}
+#bars #bottom ul.navs {
+  list-style: none;
+  float: left;
+}
+#bars #bottom ul.navs li {
+  width: 100px;
+  display: inline-block;
+  line-height: 35px;
+}
+#bars #bottom ul.navs li a {
+  color: #fff;
+}
+#bars #bottom ul.navs li:hover {
+  background-color: #4593fd;
+}
+#bars #bottom #second {
+  padding-left: 20px;
+  padding-right: 20px;
+  z-index: 100;
+  position: absolute;
+  background-color: white;
+  top: 35px;
+  left: 100%;
+  width: 580px;
+  text-align: left;
+}
+#bars #bottom #second ul {
+  list-style: none;
+}
+#bars #bottom #second ul li {
+  border-bottom: 1px solid gray;
+  padding-top: 10px;
+}
+#bars #bottom #second ul li .title {
+  line-height: 24px;
+  display: inline-block;
+  vertical-align: top;
+  height: 24px;
+}
+#bars #bottom #second ul li .conts {
+  display: inline-block;
+  line-height: 24px;
+  margin-left: 15px;
+  width: 440px;
+  vertical-align: top;
+}
+#bars #bottom #second ul a {
+  color: gray;
+  font-size: 12px;
+  margin-left: 15px;
+  line-height: 24px;
+}
+#auto {
+  width: 100%;
+}
+#auto .pic {
+  position: relative;
+  width: 1000px;
+  margin: 0 auto;
+}
+#auto .pic ul {
+  list-style-type: none;
+  position: absolute;
+  left: 190px;
+}

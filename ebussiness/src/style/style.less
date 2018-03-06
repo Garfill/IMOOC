@@ -1,0 +1,262 @@
+// 初始化
+*{
+    margin: 0;
+    padding: 0;
+}
+
+//公共属性
+@comwidth:1000px;
+.left(){float:left;}
+.right(){float: right;}
+@acolor:rgb(102,102,102);//链接颜色
+
+
+.topbar{
+    width:@comwidth;margin: 0 auto;
+}
+//第一栏 登陆栏 done
+#bars #top {
+  background-color: rgb(247, 247, 247);
+  font: normal normal bolder 14px/31px "SimSun";
+  &::after {
+    content: "";
+    display: block;
+    clear: both;
+  }
+  a {
+    color: @acolor;
+    text-decoration: none;
+  }
+  .collection {
+
+    background: url(./../../image/icon/images/star.jpg);
+    background-position: left center;
+    background-repeat: no-repeat;
+    padding-left: 19px;
+    .left;
+  }
+  .rightarea {
+    .right;
+    a:nth-child(1) {
+      border-right: 1px solid @acolor;
+      padding-right: 5px;
+    }
+  }
+}
+//第二栏 logobar
+#bars #middle{
+  height: 85px;
+  background-color: rgb(29,122,217);
+  overflow: hidden;
+  #logo{
+    .left;
+    margin:11px 0px auto 40px;
+  }
+  #search{
+    .left;
+    margin-top: 23px;
+    margin-left: 147px;
+    height: 35px;
+    input{
+      border: none;
+    }
+    input:first-child{
+      height: 35px;
+      width: 350px;
+      padding-left: 5px;
+      padding-right: 5px;
+    }
+    input:last-child{
+      background-color: rgb(255,140,0);
+      color: white;
+      height: 35px;
+      width: 70px;
+      font-family: 'Microsoft Yahei';
+    }
+  }
+  #shopText{
+    .right;
+    background: rgb(255,140,0);
+    margin-top: 23px;
+    height: 35px;
+    padding-right: 12px;
+    div{
+      display: inline-block;
+      height: 35px;
+      line-height: 35px;
+      color: white;
+    }
+    div:nth-child(1){
+      margin-left: 11px;
+      span{
+        margin-left: 7px;
+      }
+    }
+    div:nth-child(2){
+      margin-left: 26px;
+      span{
+        margin-right: 7px;
+      }
+    }
+    a{
+      color: white;
+      text-decoration: none;
+    }
+  }
+}
+//第三栏
+#bars #bottom{
+  .active(){
+    background-color: rgb(69,147,253);
+  }
+  background-color: rgb(19,105,192);
+  height: 35px;
+  text-align: center;
+
+  a{
+    text-decoration: none;
+  }
+  .total{
+    color: #fff;
+    .left;
+    position: relative;
+    display: inline-block;
+    width: 189px;
+    line-height: 35px;
+    &:hover{
+      .active;
+    }
+    ul.list{
+      list-style-type: none;
+      background-color: rgb(69,147,253);
+      li{
+        height: 35px;
+        border-bottom: 1px solid  rgb(19,105,192);
+        border-top: 1px solid rgb(53, 135, 242);
+        padding-top: 14px;
+        padding-bottom: 14px;
+        padding-left: 9px;
+        margin-left: 1px;
+        text-align: left;
+        a{
+          color: white;
+        }
+        .item{
+          font-size: 14px;
+          height: 18px;
+          line-height: 18px;
+          .hlight{
+            font-size: 12px;
+            display: inline-block;
+            margin-left: 11px;
+            width: 60px;
+            border-radius: 10px;
+            background-color: rgb(19,105,192);
+            text-align: center;
+          }
+        }
+        .cont{
+          font-size: 12px;
+          line-height: 12px;
+          margin-top: 5px;
+        }
+        &:hover{
+          background-color: white;
+          a{
+            color: black
+          }
+        }
+      }
+    }
+
+  }
+  ul.navs{
+    list-style: none;
+    .left;
+    li{
+      width: 100px;
+      display: inline-block;
+      line-height: 35px;
+      a{
+        color: #fff;
+      }
+      &:hover{
+        .active;
+      }
+    }
+  }
+  #second{
+    padding-left: 20px;
+    padding-right: 20px;
+    z-index: 100;
+    position: absolute;
+    background-color: white;
+    top: 35px;
+    left: 100%;
+    width: 580px;
+    text-align: left;
+    // display: none;
+    ul{
+      list-style: none;
+      li{
+        border-bottom: 1px solid gray;
+        padding-top: 10px;
+        .title{
+          line-height: 24px;
+          display: inline-block;
+          vertical-align: top;  //两个div的文字行数不一样导致基线对准错误
+          height: 24px;
+        }
+        .conts{
+          display: inline-block;
+          line-height: 24px;
+          margin-left: 15px;
+          width: 440px;
+          vertical-align: top;//两个div的文字行数不一样导致基线对准错误
+        }
+      }
+      a{
+        color: gray;
+        font-size: 12px;
+        margin-left: 15px;
+        line-height: 24px;
+      }
+    }
+  }
+}
+
+// 轮播图片
+#auto{
+  width: 100%;
+   .pic{
+      position: relative;
+      width: @comwidth;
+      margin: 0 auto;
+    ul{
+      list-style-type: none;
+      position: absolute;
+      left: 190px;
+    }
+  }
+  
+  // #prev,#next{
+  //   color: black;
+  //   font-size: 50px;
+  //   display: inline-block;
+  //   height: 100%;
+  //   width: 50px;
+  //   position: absolute;
+  //   background: gray;
+  //   opacity: 0.2;
+  // }
+  // #prev{
+  //   left: 0;
+  //   top: 0;
+  // }
+  // #next{
+  //   right: 0;
+  //   top: 0;
+  // }
+}
+
+// 二级菜单

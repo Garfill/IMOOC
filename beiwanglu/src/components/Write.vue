@@ -25,13 +25,17 @@
       add:function(){
         var day = document.getElementsByTagName('select')[0].value;
         var plan = this.plan;
-        this.$emit('addone',{data:day,plan:plan});
+				this.$emit('addone',{data:day,plan:plan});
+				this.plan = '';
       }
     }
   }
 </script>
 
 <style scoped>
+div{
+	margin-top: 30px;
+}
   select,textarea{
     vertical-align: top;
   }

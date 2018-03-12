@@ -1,38 +1,41 @@
 <template>
 	<div class="items">
-		<week :days='week'></week>
+		<date v-for="day in week" :key="day.id" :date = "day" @del="del"></date>
 		<write @addone="add"></write>
 	</div>
 </template>
 
 <script>
-	import Week from './Week.vue'
+	import Date from './Date.vue'
 	import Write from './Write.vue'
 
 	export default  {
 		name:'Total',
 		components:{
-			'week':Week,
+			'date':Date,
 			'write':Write
 		},
 		methods:{
 			add:function(data){
 				var num = data.data;
 				var plan = data.plan;
-				console.log(this.week[num].msg);
-				this.week[num].msg = plan;
+				// console.log(this.week[num].msg);
+				this.week[num].msgs.push(plan);
+			},
+			del:function(id){
+				this.week[id].msgs = ["ok"];
 			}
 		},
 		data:function(){
 			return {
 					week:[
-              {day:'Monday',id:'0',msg:'plan1'},
-              {day:'Tuesday',id:'1',msg:'plan2'},
-              {day:'Wednesday',id:'2',msg:'plan3'},
-              {day:'Thursday',id:'3',msg:'plan4'},
-              {day:'Friday',id:'4',msg:'plan5'},
-              {day:'Saturday',id:'5',msg:'plan6'},
-              {day:'Sunday',id:'6',msg:'plan7'}
+              {day:'Monday',id:'0',msgs:[]},
+              {day:'Tuesday',id:'1',msgs:[]},
+              {day:'Wednesday',id:'2',msgs:[]},
+              {day:'Thursday',id:'3',msgs:[]},
+              {day:'Friday',id:'4',msgs:[]},
+              {day:'Saturday',id:'5',msgs:[]},
+              {day:'Sunday',id:'6',msgs:[]}
 					]
 
 			}

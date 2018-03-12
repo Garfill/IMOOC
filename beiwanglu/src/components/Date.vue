@@ -1,8 +1,8 @@
 <template>
   <div class="days">
-    <div class="up">{{adate}}</div>
-    <div class="mid" :datap="msg">{{datap}}</div>
-    <div class="bottom" v-on:click="remove">Done</div>
+    <div class="up">{{datamap.day}}</div>
+    <div class="mid" v-for="(msg,index) in msgs" :key="index">{{msg}}</div>
+    <div class="bottom" v-on:click="done">Done</div>
   </div>
 </template>
 
@@ -10,21 +10,25 @@
   export default {
     name: "date",
     props: {
-      "adate": {
-        type: String
-			},
-			'msg':{
-				type:String
+      'date':{
+				type:Object
 			}
-    },
-    data:function(){
-			return {
-				datap : this.msg
+		},
+
+    computed:{
+			datamap:function(){
+				return {
+					id:this.date.id,
+					day:this.date.day,
+				}
+			},
+			msgs:function(){
+				return this.date.msgs;
 			}
 		},
 		methods:{
-			remove:function(){
-				this.$emit('done');
+			done:function(){
+				this.$emit('del',this.datamap.id)
 			}
 		}
   }
@@ -36,6 +40,7 @@
     width: 150px;
     background-color: #666666;
     display: inline-block;
+		vertical-align: top;
     margin-right: 20px;
     color: white;
     position: relative;
@@ -50,7 +55,6 @@
   }
   div.mid{
     width: 100%;
-    height: 100px;
   }
   div.bottom{
     cursor: pointer;

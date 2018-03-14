@@ -108,6 +108,9 @@
   width: 189px;
   line-height: 35px;
 }
+#bars #bottom .total:hover #second {
+  opacity: 1;
+}
 #bars #bottom .total:hover {
   background-color: #4593fd;
 }
@@ -178,6 +181,8 @@
   left: 100%;
   width: 580px;
   text-align: left;
+  opacity: 0;
+  transition: all 0.3s ease-in;
 }
 #bars #bottom #second ul {
   list-style: none;

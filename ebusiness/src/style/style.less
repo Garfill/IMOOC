@@ -265,6 +265,7 @@
 .show-items{
 	width: @comwidth;
 	margin: 0 auto;
+	padding-bottom: 40px;
 	.item-bar{
 		height: 75px;
 		background: white;
@@ -408,6 +409,47 @@
 				}
 			}
 			
+		}
+	}
+}
+
+footer{
+	width: 100%;
+	background-color: rgb(212,212,212);
+	margin-bottom: 10px;
+	.foot_out{
+		width: @comwidth;
+		margin: 0 auto;
+		padding-bottom: 50px;
+	}
+	.foot_in{
+		padding-top: 55px;
+		text-align: center;
+		font-size: 12px;
+	}
+	.contact{
+		margin-bottom: 12px;
+		a{
+			border-right: 1px solid black;
+			color: black;
+			padding-left: 10px;
+			text-decoration: none;
+			&:last-child{
+				border: none;
+			}
+		}
+	}
+	.beian{
+		margin-bottom: 35px;
+		div{
+			display: inline-block;
+			margin-left: 20px;
+			font-size: 12px;
+		}
+	}
+	.foot_pic{
+		img{
+			margin-right: 20px;
 		}
 	}
 }

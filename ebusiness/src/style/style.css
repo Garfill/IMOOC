@@ -221,6 +221,7 @@
 .show-items {
   width: 1000px;
   margin: 0 auto;
+  padding-bottom: 40px;
 }
 .show-items .item-bar {
   height: 75px;
@@ -363,4 +364,42 @@
   content: '';
   clear: both;
   display: block;
+}
+footer {
+  width: 100%;
+  background-color: #d4d4d4;
+  margin-bottom: 10px;
+}
+footer .foot_out {
+  width: 1000px;
+  margin: 0 auto;
+  padding-bottom: 50px;
+}
+footer .foot_in {
+  padding-top: 55px;
+  text-align: center;
+  font-size: 12px;
+}
+footer .contact {
+  margin-bottom: 12px;
+}
+footer .contact a {
+  border-right: 1px solid black;
+  color: black;
+  padding-left: 10px;
+  text-decoration: none;
+}
+footer .contact a:last-child {
+  border: none;
+}
+footer .beian {
+  margin-bottom: 35px;
+}
+footer .beian div {
+  display: inline-block;
+  margin-left: 20px;
+  font-size: 12px;
+}
+footer .foot_pic img {
+  margin-right: 20px;
 }

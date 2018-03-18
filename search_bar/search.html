@@ -6,6 +6,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta http-equiv="X-UA-Compatible" content="ie=edge">
 	<title>Search bar</title>
+	<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
 	<style>
 		* {
 			margin: 0;
@@ -31,19 +32,19 @@
 
 		.inner {
 			position: absolute;
-			left: 15%;
-			top: 15%;
+			left: 200px;
+			top: 100px;
 		}
 
 		.logo {
 			float: left;
+			margin-top: -5px;
 			margin-right: 20px;
 		}
 
 		form {
 			float: left;
 			background: #fff;
-			margin-top: 5px;
 		}
 
 		input {
@@ -56,6 +57,8 @@
 			height: 30px;
 			line-height: 30px;
 			outline: none;
+			padding-left: 10px;
+			font-size: 16px;
 		}
 
 		.search_btn {
@@ -63,6 +66,29 @@
 			background-position: center center;
 			width: 30px;
 			height: 30px;
+		}
+
+		.suggest {
+			/* position: absolute; */
+			background: white;
+			width: 430px;
+			display: none;
+		}
+
+		ul {
+			list-style-type: none;
+		}
+
+		li {
+			padding-left: 10px;
+			height: 25px;
+			line-height: 25px;
+		}
+
+		li:hover {
+			text-decoration: underline;
+			background: #e5e5e5;
+			cursor: pointer;
 		}
 	</style>
 </head>
@@ -73,12 +99,71 @@
 			<div class="logo">
 				<img src="./img/logo.png" alt="logo">
 			</div>
-			<form action="" method="GET" target="_blank">
-				<input type="text" name="search" id="search" class="search_text">
+			<form action="https://cn.bing.com/search" method="GET" target="_blank">
+				<input type="text" name="q" id="search" class="search_text" autocomplete="off">
 				<input type="submit" value="" class="search_btn">
 			</form>
+			<div class="suggest">
+				<ul id="search_as">
+					<li>result1</li>
+					<li>result1</li>
+				</ul>
+			</div>
 		</div>
 	</div>
+	<script>
+		$(function () {
+			function getdata(data) {
+				var html = "";
+				var d = data.AS.Results[0].Suggests
+				for (let i = 0; i < d.length; i++) {
+					html += "<li>" + d[i].Txt + "</li>";
+				};
+				$("#search_as").html(html);
+				$(".suggest").show().css({
+					left: $('form').position().left,
+					top: $('form').position().top + $('form').height(),
+					position: 'absolute'
+				})
+			};
+
+			// getJSON请求失效（同源,无法读取data）
+			// $(".search_text").keyup(function () {
+			// 	var searchText = $("#search").val();
+			// 	$.getJSON("http://api.bing.com/qsonhs.aspx?type=cb&cb=getdata&q=" + searchText);
+			// })
+			// function getdata(data) {
+			// 	var html = "";
+			// 	var d = data.AS.Results[0].Suggests;
+			// 	for (let i = 0; i < d.length; i++) {
+			// 		html += "<li>" + d[i].Txt + "</li>";
+			// 	};
+			// 	$("#search_as").html(html);
+			// 	$(".suggest").show().css({
+			// 		left: $('form').position().left,
+			// 		top: $('form').position().top + $('form').height(),
+			// 		position: 'absolute'
+			// 	})
+			// }
+			$(".search_text").keyup(function () {
+				var searchText = $("#search").val();
+				$.ajax({
+					type: "GET",
+					url: "http://api.bing.com/qsonhs.aspx?type=cb&cb=getdata&q=" + searchText,
+					dataType: "jsonp",
+					async: false,
+					jsonp: "getdata",
+					jsonpCallback: "getdata",
+					success: function (data) {
+						getdata(data);
+					}
+				});
+			});
+			$("#search_as").on("click", "li", function () {
+				location.href = "https://cn.bing.com/search?q=" + $(this).text();
+			})
+		});
+	</script>
 </body>
 
 </html>

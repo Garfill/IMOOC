@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>淘宝搜索框</title>
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+			font-size: 14px;
+		}
+
+		.container {
+			width: 800px;
+			margin: 50px auto;
+			position: relative;
+		}
+
+		.more {
+			float: right;
+			border: 1px solid gray;
+		}
+
+		.more a {
+			color: gray;
+			text-decoration: none;
+		}
+
+		.btn {
+			float: right;
+			width: 75px;
+			height: 40px;
+			background-color: orangered;
+			margin-right: 20px;
+		}
+
+		.btn button {
+			width: 100%;
+			height: 100%;
+			border: none;
+			font-size: 16px;
+			color: white;
+			background: transparent;
+			cursor: pointer;
+		}
+
+		.pannel {
+			height: 40px;
+			background-color: orangered;
+			overflow: hidden;
+			padding: 3px 0 3px 70px;
+			position: relative;
+		}
+
+		.pannel input {
+			height: 34px;
+			vertical-align: top;
+			width: 100%;
+			padding-left: 10px;
+			border: none;
+			outline: none;
+		}
+
+		.pannel i {
+			color: red;
+			font-size: 20px;
+			position: absolute;
+			top: 10px;
+			left: 70px;
+		}
+
+		.search_li {
+			background: white;
+			text-align: center;
+			height: 34px;
+			overflow: hidden;
+			width: 60px;
+			position: absolute;
+			top: 3px;
+			left: 3px;
+			z-index: 99;
+			display: block;
+		}
+
+		.trig_hover {
+			height: 68px;
+		}
+
+		.trig li {
+			display: block;
+		}
+
+		.search_li a {
+			font-size: 16px;
+			text-decoration: none;
+			color: gray;
+		}
+
+		.search_li ul {
+			list-style: none;
+		}
+
+		.search_li li {
+			height: 34px;
+			line-height: 34px;
+			display: block;
+		}
+
+		.search_li li:hover {
+			background-color: skyblue;
+		}
+
+		.search_li .selected {
+			display: block;
+		}
+	</style>
+</head>
+
+<body>
+	<div class="container">
+		<div class="search_li">
+			<ul>
+				<li class="selected tab" id="tab_1">
+					<a href="#">宝贝</a>
+				</li>
+				<li id="tab_2" class="tab">
+					<a href="#">店家</a>
+				</li>
+			</ul>
+		</div>
+		<div class="more">
+			<a href="#">高级
+				<br/>搜索</a>
+		</div>
+		<div class="btn">
+			<button>搜 索</button>
+		</div>
+		<div class="pannel">
+			<form action="">
+				<input type="text" name="goods" id="goods">
+			</form>
+			<i>i</i>
+		</div>
+	</div>
+
+	<script>
+		var type = document.getElementsByClassName("search_li")[0];
+		var tab_1 = document.getElementById("tab_1");
+		var tab_2 = document.getElementById("tab_2");
+		var tabs = document.getElementsByClassName("tab");
+		type.addEventListener("mouseenter", function () {
+			this.classList.add("trig_hover");
+		})
+		// 点击第一个li无需切换
+		tab_1.addEventListener("click", function () {
+			type.classList.remove("trig_hover");
+			this.classList.add("selected");
+			tab_2.classList.remove("selected");
+		})
+		//点击第二个li才需要切换
+		tab_2.addEventListener("click", function () {
+			type.classList.remove("trig_hover");
+			this.classList.add("selected");
+			tab_1.classList.remove("selected");
+			var temp = this.innerHTML;
+			this.innerHTML = tab_1.innerHTML;
+			tab_1.innerHTML = temp;
+		})
+	</script>
+</body>
+
+</html>

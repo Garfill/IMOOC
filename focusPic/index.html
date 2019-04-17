@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>Focus Pic</title>
+        <style>
+            * {
+                margin: 0;
+                padding: 0;
+            }
+
+            img {
+                max-width: 100%;
+                vertical-align: bottom;
+            }
+
+            .container {
+                position: relative;
+                width: 500px;
+                margin: 0 auto;
+            }
+
+            .wrapper {
+                position: relative;
+                width: 100%;
+                height: 200px;
+                overflow: hidden;
+                line-height: 1.2;
+            }
+
+            .list {
+                position: absolute;
+                top: 0;
+                left: 0;
+                white-space: nowrap;
+            }
+
+            .list::before,
+            .list::after {
+                content: '';
+                display: block;
+                clear: both;
+            }
+
+            .item {
+                float: left;
+            }
+
+            .button {
+                position: absolute;
+                top: 50%;
+                transform: translateY(-50%);
+                cursor: pointer;
+                padding: 20px;
+                background: rgba(0, 0, 0, .6);
+                color: #fff;
+                font-size: 20px;
+                transition: all linear .2s;
+            }
+
+            .prev.origin{
+                left: 0;
+                opacity: 0;
+            }
+            .next.origin{
+                right: 0;
+                opacity: 0;
+            }
+            .prev {
+                left: 10px;
+                opacity: 1;
+            }
+
+            .next {
+                right: 10px;
+                opacity: 1;
+            }
+
+            .pagination {
+                text-align: center;
+            }
+
+            .slide {
+                display: inline-block;
+                width: 10px;
+                height: 10px;
+                margin-top: 0 5px;
+                border-radius: 5px;
+                background: #000;
+                cursor: pointer;
+            }
+
+            .slide.active {
+                background: #f00;
+            }
+        </style>
+    </head>
+
+    <body>
+        <div class="container">
+            <div class="view">
+            <div class="wrapper">
+                <div class="list">
+                    <div class="item">
+                        <img src="http://www.pptbz.com/pptpic/UploadFiles_6909/201203/2012031220134655.jpg">
+                    </div>
+                    <div class="item">
+                        <img src="http://www.pptbz.com/pptpic/UploadFiles_6909/201203/2012031220134655.jpg">
+                    </div>
+                    <div class="item">
+                        <img src="http://www.pptbz.com/pptpic/UploadFiles_6909/201203/2012031220134655.jpg">
+                    </div>
+                    <div class="item">
+                        <img src="http://www.pptbz.com/pptpic/UploadFiles_6909/201203/2012031220134655.jpg">
+                    </div>
+                    <div class="item">
+                        <img src="http://www.pptbz.com/pptpic/UploadFiles_6909/201203/2012031220134655.jpg">
+                    </div>
+                    <div class="item">
+                        <img src="http://www.pptbz.com/pptpic/UploadFiles_6909/201203/2012031220134655.jpg">
+                    </div>
+                    <div class="item">
+                        <img src="http://www.pptbz.com/pptpic/UploadFiles_6909/201203/2012031220134655.jpg">
+                    </div>
+                </div>
+            </div>
+            <div class="buttons">
+                <div class="button prev origin">L</div>
+                <div class="button next origin">R</div>
+            </div>
+            </div>
+            <div class="pagination">
+                <div class="slide"></div>
+                <div class="slide"></div>
+                <div class="slide"></div>
+                <div class="slide"></div>
+                <div class="slide"></div>
+            </div>
+        </div>
+
+        <script>
+            function focusPic() {
+                var view = document.querySelector(".view")
+                var wrapper = document.querySelector(".wrapper");
+                var list = document.querySelector(".list");
+                var itemList = document.querySelectorAll(".item");
+                var item = document.querySelector(".item")
+                var buttons = document.querySelector(".buttons")
+                var btns = document.querySelectorAll(".button")
+                var prev = document.querySelector(".prev");
+                var next = document.querySelector(".next");
+                var slideList = document.querySelectorAll(".slide");
+
+                var currentIndex = 1;
+
+                var beginIndex, endIndex;
+
+                var targetLeft;
+
+                var moveTimer;
+
+                var playTimer;
+
+                var animated = false;
+
+
+
+                //宽度函数，设置初始宽度
+                function initWidth() {
+                    beginIndex = 1;
+                    endIndex = itemList.length - 2;
+                    list.style.width = (item.offsetWidth * itemList.length) + 'px'
+                    for (var i = 0; i < itemList.length; i++) {
+                        itemList[i].style.width = wrapper.offsetWidth + 'px'
+                    }
+                }
+                //初始化位置
+                function initPos(){
+                    list.style.left = -item.offsetWidth + 'px'
+                    changeSlide(beginIndex)
+                }
+
+
+                // 动画入口
+                function animate(nextIndex) {
+
+                    animated = true;
+                    
+                    // 改变slide
+                    if (nextIndex == 0) {
+                        changeSlide(endIndex)
+                    } else if (nextIndex >= itemList.length -1) {
+                        changeSlide(beginIndex)
+                    } else {
+                        changeSlide(nextIndex)
+                    }
+                    currentIndex = nextIndex;
+                    targetLeft = -item.offsetWidth * currentIndex
+
+                    // 改变图片
+                    move()
+
+                    // list.style.left = -item.offsetWidth * nextIndex + 'px';
+                }
+                //左右箭头点击
+                function addEvent() {
+                    next.onclick = function (event) {
+                        if (animated) return
+                        clearTimeout(playTimer)
+                        var nextIndex = currentIndex + 1
+                        //两个切换分开不耦合
+                        animate(nextIndex)
+                        play()
+                    };
+                    prev.onclick = function (event) {
+                        if (animated) return
+                        clearTimeout(playTimer)
+                        var nextIndex = currentIndex - 1
+                        animate(nextIndex)
+                        play()
+                    };
+                    for(var i = 0; i<slideList.length; i++) {
+                        slideList[i].index = i + 1
+                        slideList[i].onclick = function(event){
+                            if (animated) return;
+                            if (this.index != currentIndex) {
+                                clearTimeout(playTimer)
+                                animate(this.index)
+                                play()
+                            }
+                        }
+                    };
+                    view.addEventListener("mouseenter", function(){
+                        playTimer && clearInterval(playTimer)
+                        btns.forEach(btn => {
+                            btn.classList.remove("origin")
+                        })
+                    });
+                    view.addEventListener("mouseleave", function() {
+                        playTimer && clearInterval(playTimer)
+                        play()
+                        btns.forEach(btn => {
+                            btn.classList.add("origin")
+                        })
+                    })
+                }
+
+
+                // 边界判断
+                function judgeEdge() {
+                    if (currentIndex >= itemList.length - 1) {
+                        currentIndex = beginIndex
+                        list.style.left = -beginIndex * item.offsetWidth + 'px'
+                    }
+                    if (currentIndex == 0) {
+                        currentIndex = endIndex
+                        list.style.left = -endIndex * item.offsetWidth + 'px'
+                    }
+                    changeItem(currentIndex)
+                }
+
+                //slide 切换
+                function changeSlide(currentIndex) {
+                    for (var i = 0; i < slideList.length; i++) {
+                        slideList[i].classList.remove('active')
+                    }
+                    slideList[currentIndex - 1].classList.add('active')
+                }
+                //item 切换
+                function changeItem(currentIndex) {
+                    for (var i = 0; i < itemList.length; i++) {
+                        itemList[i].classList.remove('active')
+                    }
+                    itemList[currentIndex].classList.add('active')
+                }
+
+                // 动画函数
+                function move() {
+                    var nowLeft = list.offsetLeft;
+                    var speed = (targetLeft - nowLeft) / 5;
+                    speed = speed > 0 ? Math.ceil(speed) : Math.floor(speed)
+                    if(targetLeft == nowLeft) {
+                        clearTimeout(moveTimer)
+                        judgeEdge()
+                        animated = false
+                        return;
+                    }
+                    moveTimer = setTimeout(() => {
+                        list.style.left = list.offsetLeft + speed + 'px';
+                        move()
+                    }, 30);
+                }
+
+                function init() {
+                    initWidth()
+                    addEvent()
+                    initPos()
+                    play()
+                }
+
+                function play() {
+                    playTimer = setTimeout(function(){
+                        var nextIndex = currentIndex + 1
+                        animate(nextIndex)
+                        play()
+                    }, 3000)
+                }
+
+                init()
+            }
+            window.onload = function () {
+                focusPic()
+            }
+        </script>
+    </body>
+
+</html>

@@ -96,6 +96,10 @@
             .slide.active {
                 background: #f00;
             }
+
+            .item.active {
+                transform: rotate(180deg);
+            }
         </style>
     </head>
 
@@ -181,6 +185,7 @@
                 function initPos(){
                     list.style.left = -item.offsetWidth + 'px'
                     changeSlide(beginIndex)
+                    changeItem(beginIndex)
                 }
 
 

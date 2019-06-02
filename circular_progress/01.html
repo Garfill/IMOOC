@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Circular Progress</title>
+    <style>
+      .app {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 100px;
+        height: 100px;
+        border: 1px solid gray;
+      }
+
+      .mask {
+        position: absolute;
+        top: 0;
+        width: 50%;
+        height: 100%;
+        overflow: hidden;
+      }
+
+      .left {
+        left: 0;
+      }
+
+      .right {
+        right: 0;
+      }
+
+      .progress {
+        box-sizing: border-box;
+        position: absolute;
+        top: 0;
+        width: 200%;
+        height: 100%;
+        border-radius: 50%;
+        border: 10px solid;
+        transform: rotate(45deg);
+      }
+
+      .left.progress {
+        border-color: red red transparent transparent;
+        animation: circularLeft 3s linear infinite;
+      }
+
+      .right.progress {
+        border-color: transparent transparent red red;
+        animation: circularRight 3s linear infinite;
+      }
+
+      @keyframes circularLeft {
+        0%, 50% {
+          transform: rotate(45deg);
+        }
+        100% {
+          transform: rotate(225deg);
+        }
+      }
+      @keyframes circularRight {
+        0% {
+          transform: rotate(45deg);
+        }
+        50%, 100% {
+          transform: rotate(225deg);
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="app">
+      <div class="circular">
+        <div class="mask left">
+          <div class="left progress"></div>
+        </div>
+        <div class="mask right">
+          <div class="right progress"></div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      var leftP = document.querySelector(".left.progress")
+      var rightP = document.querySelector(".right.progress")
+      var countL = 45
+      var countR = 45
+      var target = 0
+      var leftTimer, rightTimer
+      var finishHalf = false
+
+      function rotate(deg, type) {
+        if (type == 0) {
+          if (countR < deg) {
+            rightP.style.transform = 'rotate(' + (++countR) + 'deg)';
+            if (window.requestAnimationFrame) {
+              rightTimer = window.requestAnimationFrame(function () {
+                rotate(deg, type);
+              });
+            } else {
+              rightTimer = setTimeout(function () {
+                rotate(deg, type);
+              }, 10);
+            }
+          } else {
+            rightTimer = null;
+            finishHalf = true;
+            if (target > 180) {
+              rotate(target - 180 + 45, 1)
+            }
+          }
+        } else {
+          if (!finishHalf) {
+            rotate(180 + 45, 0)
+          } else {
+            if (countL < deg) {
+              leftP.style.transform = 'rotate(' + (++countL) + 'deg)';
+              if (window.requestAnimationFrame) {
+                leftTimer = window.requestAnimationFrame(function () {
+                  rotate(deg, type);
+                });
+              } else {
+                leftTimer = setTimeout(function () {
+                  rotate(deg, type);
+                }, 10);
+              }
+            } else {
+              leftTimer = null;
+            }
+          }
+        }
+      }
+
+      function score(num) {
+        target = 360 * num
+        if (num <= 0.5) {
+          rotate(target + 45, 0)
+        } else {
+          rotate(target + 45, 1)
+        }
+      }
+    </script>
+
+  </body>
+
+</html>

@@ -8,12 +8,16 @@
 <script>
 import Header from "./components/Header";
 import Total from "./components/Total";
-
+// const jq = require("../jquery-3.2.1.js")
 export default {
     name: "App",
     components: {
         "app-header": Header,
         "app-content": Total
+    },
+    mounted() {
+        console.log("mounted")
+        const jq = require("../jquery-3.2.1.js")
     }
 };
 </script>

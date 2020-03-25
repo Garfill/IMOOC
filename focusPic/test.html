@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Example</title>
+    <link rel="stylesheet" href="./swipe.css">
+    <script src="./swipe.js"></script>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+      }
+      img {
+        max-width: 100%;
+        vertical-align: bottom;
+      }
+      .swipe-block {
+        width: 500px;
+        margin: 0 auto;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="swipe-block">
+      <div class="swipe-container">
+        <div class="swipe-wrapper">
+          <div class="swipe-item">
+            <img src="http://www.pptbz.com/pptpic/UploadFiles_6909/201203/2012031220134655.jpg">
+          </div>
+          <div class="swipe-item">
+            <img src="https://i.loli.net/2018/08/04/5b657fef509c9.jpg">
+          </div>
+          <div class="swipe-item">
+            <img src="https://i.loli.net/2018/08/04/5b657fef3a46c.jpg">
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="carousel-container" id="carousel"></div>
+    <script>
+      var container = document.querySelector('.swipe-container')
+      var swipe = new Swipe(container)
+
+    </script>
+  </body>
+
+</html>

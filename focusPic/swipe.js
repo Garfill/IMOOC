@@ -101,20 +101,27 @@
     setSwipe() {
       // 复制头尾节点
       this.originList = this.wrapper.children
-      let first = this.wrapper.children[0].cloneNode(true)
-      let last = this.wrapper.children[this.count - 1].cloneNode(true)
-      this.wrapper.insertBefore(last, this.wrapper.children[0])
-      this.wrapper.appendChild(first)
+      if (this.continuous) {
+        let first = this.wrapper.children[0].cloneNode(true)
+        let last = this.wrapper.children[this.count - 1].cloneNode(true)
+        this.wrapper.insertBefore(last, this.wrapper.children[0])
+        this.wrapper.appendChild(first)
+      }
       this.swipeList = this.wrapper.children
-      this.setHeight(this.container, this.swipeHeight)
       // 设置轮播宽度
+      this.setHeight(this.container, this.swipeHeight)
       let listWidth = this.wrapper.children.length * this.swipeWidth
       this.setWidth(this.wrapper, listWidth)
-      if (supportTransition) {
-        this.setTransition(this.wrapper, 0)
-        this.setTransform(this.wrapper, -this.swipeWidth)
+      if (this.continuous) {
+        if (supportTransition) {
+          this.setTransition(this.wrapper, 0)
+          this.setTransform(this.wrapper, -this.swipeWidth)
+        } else {
+          this.setLeft(this.wrapper, -this.swipeWidth)
+        }
       } else {
-        this.setLeft(this.wrapper, -this.swipeWidth)
+        this.setTransition(this.wrapper, 0)
+        this.setTransform(this.wrapper, 0)
       }
       for(let i = 0; i < this.swipeList.length; i++) {
         this.setWidth(this.swipeList[i], this.swipeWidth)
@@ -182,7 +189,7 @@
           this.setTransform(this.wrapper, this.touch.move + this.touch.startX)
           let direction = Math.abs(this.touch.move) / this.touch.move
           let offsetPer = (parseInt(Math.abs(this.touch.move)) / this.swipeWidth).toFixed(2)
-          if (offsetPer > this.touch.offset) {
+          if ((offsetPer > this.touch.offset) && this.continuous) {
             direction > 0 ? this.current-- : this.current++
             this.transform(-this.swipeWidth * this.current)
             if (this.current > this.count) {
@@ -194,7 +201,11 @@
             }
             this.changeSlide(this.currentSlide)
           } else {
-            this.transform(-this.swipeWidth * this.current)
+            if (this.continuous) {
+              this.transform(-this.swipeWidth * this.current)
+            } else {
+              this.transform(0)
+            }
           }
         }
       })
@@ -387,10 +398,12 @@
       }
     },
     setActive() {
-      for (let i = 0; i < this.swipeList.length; i++) {
-        this.swipeList[i].classList.remove('active')
+      if (this.continuous) {
+        for (let i = 0; i < this.swipeList.length; i++) {
+          this.swipeList[i].classList.remove('active')
+        }
+        this.swipeList[this.current].classList.add('active')
       }
-      this.swipeList[this.current].classList.add('active')
     },
     resetMoveDot() {
       this.dotClick = false

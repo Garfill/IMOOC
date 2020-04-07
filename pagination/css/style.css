@@ -1,0 +1,29 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+ul, li {
+  list-style: none;
+}
+
+.pagination-list {
+  white-space: nowrap;
+}
+.pagination-item {
+  display: inline-block;
+  margin: 0 5px;
+  width: 30px;
+  border-radius: 4px;
+  background-color: rgb(175, 166, 166);
+  text-align: center;
+  color: #fff;
+  cursor: pointer;
+}
+.pagination-item.current {
+  background-color: skyblue;
+  color: #000;
+}
+
+.pagination-prev, .pagination-next {
+  width: 50px;
+}

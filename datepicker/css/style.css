@@ -1,0 +1,40 @@
+.datepicker-wrapper {
+  width: 300px;
+  box-shadow: 2px 2px 5px 2px gray;
+}
+
+.datepicker-wrapper-hide {
+  display: none;
+  width: 300px;
+  box-shadow: 2px 2px 5px 2px gray;
+}
+
+.datepicker-header {
+  padding: 10px;
+  font-size: 16px;
+  text-align: center;
+}
+
+.datepicker-btn {
+  text-decoration: none;
+  color: black;
+}
+
+.datepicker-prev-btn {
+  float: left;
+}
+.datepicker-next-btn {
+  float: right;
+}
+
+.datepicker-wrapper table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: center;
+}
+
+.datepicker-week-header,
+.datepicker-date-item {
+  padding: 5px 0;
+  cursor: pointer;
+}

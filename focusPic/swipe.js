@@ -89,14 +89,14 @@
       // 获取播放框宽度
       this.swipeWidth = this.container.getBoundingClientRect().width || this._swipeWidth
       this.swipeHeight = this.container.getBoundingClientRect().height || this.options.height || this.options._swipeHeight
-      // 设置轮播项(宽高样式)
-      this.setSwipe();
-
       if (this.count > 1) {
         this.continuous = true
       } else {
         this.continuous = false
       }
+      // 设置轮播项(宽高样式)
+      this.setSwipe();
+
     },
     setSwipe() {
       // 复制头尾节点
